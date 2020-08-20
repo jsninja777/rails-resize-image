@@ -1,13 +1,30 @@
 module Image
   class Base
-    def initialize(file, w=100, h=100)
+    attr_accessor :file, :image, :info
+
+    def initialize(file)
       @file = file
-      @width = w
-      @height = h
     end
 
-    def check
-      @file.content_type.include? 'image/'
+    def image?
+      @file&.content_type&.include? 'image/'
+    end
+
+    def content_type
+      @file&.content_type
+    end
+
+    def info
+      @info ||= {
+        type: image.type,
+        size: image.size,
+        width: image.width,
+        height: image.height
+      }
+    end
+
+    def image
+      @image ||= MiniMagick::Image.open(@file.tempfile.path)
     end
   end
 end

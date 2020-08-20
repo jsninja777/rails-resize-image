@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :images, only: [] do
     collection do
       post :info
+      post :resize
     end
   end
 end
