@@ -4,7 +4,7 @@ class ImagesController < ApplicationController
     if service.image?
       render json: { success: true, data: service.info }
     else
-      render json: { success: false, message: 'File is blank or not an image' }
+      render json: { success: false, message: 'File is blank or not an image' }, status: 404
     end
   end
 
@@ -20,7 +20,7 @@ class ImagesController < ApplicationController
                 stream: 'true',
                 buffer_size: '4096'
     else
-      render json: { success: false, message: 'File is blank or not an image' }
+      render json: { success: false, message: 'File is blank or not an image' }, status: 404
     end
   end
 
