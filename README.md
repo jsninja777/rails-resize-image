@@ -1,24 +1,74 @@
-# README
+# Rails Image Resize
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Get image info
 
-Things you may want to cover:
+**URL** : `/images/info/`
 
-* Ruby version
+**Method** : `POST`
 
-* System dependencies
+**CURL Command**
 
-* Configuration
+```sh
+curl --location --request POST 'http://localhost:3000/images/info' \
+--form 'file=@/path/to/file.png'
+```
 
-* Database creation
+### Success Responses
 
-* Database initialization
+**Code** : `200 OK`
 
-* How to run the test suite
+```json
+{
+    "success": true,
+    "data": {
+      "type": "PNG",
+      "size": 1024,
+      "width": 100,
+      "height": 100
+    }
+}
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+### Error Response
 
-* Deployment instructions
+**Code** : `404 NOT FOUND`
 
-* ...
+```json
+{
+    "success": false,
+    "message": "File is blank or not an image"
+}
+```
+
+
+## Resize image
+
+**URL** : `/images/resize/`
+
+**Method** : `POST`
+
+**CURL Command**
+
+```sh
+curl --location --request POST 'http://localhost:3000/images/resize' \
+--form 'file=@/path/to/file.png' \
+--form 'width=150' \
+--form 'height=150'
+```
+
+### Success Responses
+
+**Code** : `200 OK`
+
+**Response** : `Resized image`
+
+### Error Response
+
+**Code** : `404 NOT FOUND`
+
+```json
+{
+    "success": false,
+    "message": "File is blank or not an image"
+}
+```
