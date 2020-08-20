@@ -13,7 +13,12 @@ class ImagesController < ApplicationController
     if service.image?
       image_file = service.call(images_params[:width], images_params[:height])
       data = open("#{Rails.root}/tmp/#{image_file}")
-      send_data data.read, filename: image_file, type: service.content_type, disposition: 'inline',  stream: 'true', buffer_size: '4096'
+      send_data data.read,
+                filename: image_file,
+                type: service.content_type,
+                disposition: 'inline',
+                stream: 'true',
+                buffer_size: '4096'
     else
       render json: { success: false, message: 'File is blank or not an image' }
     end
